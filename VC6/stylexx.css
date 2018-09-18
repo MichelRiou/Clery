@@ -1,0 +1,142 @@
+/* Générale ww*/
+/** {
+    padding: 0;
+    margin: 100;
+}
+body {
+    padding: 0;
+    margin: 100;
+}*/
+p {
+    text-align: center;
+}
+.text
+{
+background-color:white;
+color:black;
+      /*  -moz-border-radius: 30px; */
+      /*  -webkit-border-radius: 30px; */
+      /*   border-radius: 30px; */
+		width:230px;
+		height:20px;
+	/*	margin-top: 2%; */
+	/*	margin-bottom: 2%; */
+	/*	margin-left:20%; */
+	/*	margin-right:20%; */
+	 	border: 1px solid white; 
+}
+
+.text1
+{
+background-color:white;
+color:black;
+      /*  -moz-border-radius: 30px; */
+      /*  -webkit-border-radius: 30px; */
+      /*   border-radius: 30px; */
+		width:200px;
+		height:20px;
+	/*	margin-top: 2%; */
+	/*	margin-bottom: 2%; */
+	/*	margin-left:20%; */
+	/*	margin-right:20%; */
+	 	border: 1px solid blue; 
+}
+
+.text1:hover
+{
+background-color:#CCFFFF;
+}
+.text2
+{
+text-align: center;
+color:white;
+font-size: 4em;
+font-family: Arial, "Arial Black",  Verdana, sans-serif; 
+}
+.text3
+{
+text-align: center;
+color:red;
+font-size: 3.5em;
+font-family: Arial, "Arial Black",  Verdana, sans-serif; 
+}
+.saisie
+{
+background-color:#C3C3C3;
+color:black;
+      /*  -moz-border-radius: 30px; */
+      /*  -webkit-border-radius: 30px; */
+      /*   border-radius: 30px; */
+		/*width:20px;*/
+		/*height:20px;*/
+	/*	margin-top: 2%; */
+	/*	margin-bottom: 2%; */
+	/*	margin-left:20%; */
+	/*	margin-right:20%; */
+	 	border: 1px solid #AAFFFF; 
+		text-align: center;
+		font-size: 1em;
+font-family: calibri, "Arial Black",  Verdana, sans-serif; 
+}
+
+.saisie:hover
+{
+background-color:#CCFFFF;
+}
+table.listing 
+{
+overflow: hidden;
+table-layout: fixed;
+width:100%;
+padding:0;
+font-size: 1em;
+font-family: calibri, "Arial Black",  Verdana, sans-serif; 
+font-style: normal;
+font-weight: normal;
+text-align: center;
+background-color: #E3E3E3;
+color: black;
+border: 1px solid black; 
+border-collapse: collapse;
+}
+table.listing tr, th
+{
+overflow: hidden;
+border: 1px solid black; 
+padding:0;
+width:25%;
+height:25px;
+}
+.TD0
+{
+overflow: hidden;
+border: 1px solid black; 
+padding:0;
+width:23%;
+height:25px;
+}
+.TD1
+{
+font-size: 0.8em;
+font-family: calibri, "Arial Black",  Verdana, sans-serif; 
+overflow: hidden;
+border: 1px solid black; 
+padding:0;
+width:10%;
+height:25px;
+}
+table.listing tr:hover
+{
+background-color: #809FAA;
+}
+.bouton1
+{
+background-color: #BED2E6;
+border: 1px solid black;
+width:50%;
+height:25px;
+}
+.bouton1:hover
+{
+background-color: #809FAA;
+}

@@ -1,0 +1,16 @@
+<?php
+
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta name="Generator" content="FreshHTML v1.00"></meta>
+  </head>
+  <body bgcolor="Purple" text="Fuchsia">
+      <font face="Palatino Linotype" size="9"><b><i><div align="center">WWW.VENTESCLERY.FR</div></i></b></font> 
+      <div align="center"><font size="6"><font color="#FFFFFF"><small>Déstockage à Cléry Saint-André</small></font></font></div>
+      <hr color="#000000">
+      <font style="BACKGROUND-COLOR: yellow" color="#000000"></font>&nbsp;
+    </body>
+</html>
