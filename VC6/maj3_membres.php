@@ -1,13 +1,9 @@
 <?php
+print_r($_POST);
+
+include("connect.inc.php");
 if (isset($_POST['id'])) {
-    try {
-        //$db = new PDO('mysql:host=mysql5-22.90;dbname=studiogpvc1', 'studiogpvc1', 'FpgTxyF8xY');
-        $db = new PDO('mysql:host=localhost;dbname=studiogpvc1', 'root', '');
-        $db->exec('SET NAMES utf8');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch (PDOException $e) {
-        die('SERVEUR INDISPONIBLE' . $e->getMessage() . '<BR>' . 'MSG:' . $e->getcode() . '<BR>');
-    }
+  
     try {
         switch ($_POST['type']) {
             case "M":
@@ -24,7 +20,7 @@ if (isset($_POST['id'])) {
                 if (isset($_POST['visite'])) {
                     $result6 = $db->prepare('INSERT INTO membres (nom,prenom,politesse,adresse1, adresse2,code_postal,ville,taille,email,date_validation,date_creation,sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9, NOW(),NOW(),:QN10)');
                 } else {
-                    $result6 = $db->prepare('INSERT INTO membres (nom,prenom,politesse,adresse1, adresse2,code_postal,ville,taille,email,date_creation,sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9,NOW(),QN10) ');
+                    $result6 = $db->prepare('INSERT INTO membres (nom,prenom,politesse,adresse1, adresse2,code_postal,ville,taille,email,date_creation,sms) VALUES (:QN1,:QN2,:QN3,:QN4,:QN5,:QN6,:QN7,:QN8,:QN9,NOW(),QN10)');
                 }
                 $result6->execute(array(':QN1' => $_POST['nom'], ':QN2' => $_POST['prenom'], ':QN3' => $_POST['pol'], ':QN4' => $_POST['ad1'], ':QN5' => $_POST['ad2'], ':QN6' => $_POST['pos'], ':QN7' => $_POST['ville'], ':QN8' => $_POST['taille'], ':QN9' => $_POST['email'], ':QN10' => $_POST['sms']));
                 break;

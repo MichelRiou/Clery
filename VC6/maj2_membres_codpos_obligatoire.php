@@ -34,7 +34,7 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                     return re.test(document.forms["form4"].pos.value);
                 }
                 function checkAddress() {
-                    if ((document.getElementById("ad1").value.length > 1) && (document.getElementById("ville").value.length > 1) && checkZipcode())
+                    if ((document.forms["form4"].ad1.value.length > 1) && (document.forms["form4"].ville.value.length > 1) && checkZipcode())
                     {
                         return true;
                     } else {
@@ -65,19 +65,11 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         document.getElementById("prenom").focus();
                         msg += 'Le prénom est obligatoire.<br>';
                     }
-                    if (document.getElementById("ad1").value.length > 0
-                            || document.getElementById("ad2").value.length > 0
-                            || document.getElementById("pos").value.length > 0
-                            || document.getElementById("ville").value.length > 0
-                            || document.getElementById("pos").value.length > 0)
+                    if (!checkZipcode())
                     {
-                        if (!checkAddress()) {
-                            document.getElementById("ad1").style.backgroundColor = "orange";
-                            document.getElementById("ville").style.backgroundColor = "orange";
-                            document.getElementById("pos").style.backgroundColor = "orange";
-                            document.getElementById("ad1").focus();
-                            msg += 'L\'adresse n\'est pas valide.<br>';
-                        }
+                        document.getElementById("pos").style.backgroundColor = "orange";
+                        document.getElementById("pos").focus();
+                        msg += 'Le code postal est obligatoire.<br>';
                     }
                     if ((document.getElementById("email").value.length > 0) && (!checkMail()))
                     {
@@ -92,13 +84,23 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         msg += 'Le numéro de téléphone est incorrect.<br>';
                     }
 
+                    if (document.getElementById("nomail").checked)
+                    {
+                        if (!checkAddress())
+                        {
+                            document.getElementById("ad1").style.backgroundColor = "orange";
+                            document.getElementById("ville").style.backgroundColor = "orange";
+                            document.getElementById("ad1").focus();
+                            msg += 'L\'adresse est incomplète.<br>';
+                        }
 
-                    if (!checkMail() && !checkSms() && !checkAddress()) {
+                    } else {
+                        if (!checkMail() && !checkSms()) {
+                            document.getElementById("email").focus();
+                            msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
+                        }
 
-                        msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
                     }
-
-
                     if (msg == '') {
                         return true;
                     } else
@@ -143,8 +145,9 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         <tr class="TD0"><td class="TD0">CODE POSTAL</td><td class="TD0"><input class="text" type="text" size="5" maxlength="5" id="pos" name="pos" value="<?php echo ($data5['code_postal']) ?>"></td></tr>
                         <tr class="TD0"><td class="TD0">VILLE</td><td class="TD0"><input class="text" type="text" size="30" maxlength="30" id="ville" name="ville" value="<?php echo ($data5['ville']) ?>"></td></tr>
                         <tr class="TD0"><td class="TD0">TAILLE</td><td class="TD0"><input class="text" type="text" size="5" maxlength="5" id="taille" name="taille" value="<?php echo ($data5['taille']) ?>"></td></tr>
+                        <tr class="TD0"><td class="TD0">Adresse Postale uniquement</td><td class="TD0"><input type="checkbox" id="nomail" name="nomail" value="No"></td></tr>
                         <tr class="TD0"><td class="TD0">E-MAIL</td><td class="TD0"><input class="text" type="text" id="email" name="email" value="<?php echo ($data5['email']) ?>"></td></tr>
-                        <tr class="TD0"><td class="TD0">SMS</td><td class="TD0"><input class="text" type="text" id="sms" maxlength="10" name="sms" value="<?php echo ($data5['sms']) ?>"></td></tr>
+                        <tr class="TD0"><td class="TD0">SMS</td><td class="TD0"><input class="text" type="text" id="sms" name="sms" value="<?php echo ($data5['sms']) ?>"></td></tr>
 
                         <tr class="TD0"><td class="TD0">SUSPENSION</td><td class="TD0"><span><input type="radio" name="sus" value=1 <?php
                                     if ($data5['suppression'] <> 0) {

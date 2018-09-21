@@ -10,6 +10,7 @@ $bd = $properties["bd"];
 try {
     $db = new PDO("$protocole:host=$serveur;" . "dbname=$bd;charset=utf8", $user, $mdp);
     $db->exec('SET NAMES utf8');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "Erreur de connexion au serveur.<BR>";
     echo "Site indisponible.<BR>";

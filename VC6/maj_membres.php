@@ -1,27 +1,7 @@
 <?php
 include("connect.inc.php");
 $choix = 0;
-/* if (isset($_POST['nom']) or  isset($_POST['email'])) {
-  $savnom=$_POST['nom'];
-  $savmail=$_POST['email']; */
-/* 	try
-  {
-  //$db = new PDO('mysql:host=mysql5-22.90;dbname=studiogpvc1', 'studiogpvc1', 'FpgTxyF8xY');
 
-  //$db = new PDO('mysql:host=localhost;dbname=studiogpvc1', 'root', '');
-  //$db->exec('SET NAMES utf8');
-  }
-  catch(Exception $e)
-  {
-
-  echo "Erreur de connexion au serveur.<BR>";
-  echo "Site indisponible.<BR>";
-
-  mail("michel.riou@gerard-pasquier.fr","Erreur de connexion","Erreur de connexion à la BD \n".$_POST['email']."\n"
-  .$_POST['nom']."\n".$_POST['prenom']."\n".$_POST['adresse1']."\n".$_POST['adresse2']
-  ."\n".$_POST['code_postal']."\n".$_POST['ville'],"From: admin@ventesclery.fr");
-  die('Erreur : '.$e->getMessage());
-  } */
 if (isset($_POST['nom']) and ( $_POST['nom'] <> '')) {
 
     $savnom = $_POST['nom'];
@@ -46,11 +26,18 @@ if (isset($_POST['nom']) and ( $_POST['nom'] <> '')) {
 
 
         $choix = 2;
+    } else {
+        if (filter_input(INPUT_POST, 'R') == 'Nouveau') {
+            $savnom = '';
+            $savmail = '';
+            $result = $db->query('select * from membres where 1=2');
+            $result2 = $db->query('select * from membres where 1=2');
+            $choix = 3;
+        }
     }
 }
 $result3 = $db->prepare('SELECT * FROM membres ORDER BY TIME_CREATION DESC LIMIT 3');
 $result3->execute();
-/* 		} */
 ?>
 
 <!DOCTYPE html>
@@ -140,21 +127,23 @@ $result3->execute();
                 <table class="listing">
                     <caption style="background-color:#FFFFAA">MISE A JOUR FICHIER MAILING</caption>
                     <tr><th class="TD0">PAR NOM</th><th class="TD0">PAR MAIL</th></th><th class="TD0"><input type="hidden" name="flag" value="ok"></th></tr>
-                    <tr><td class="TD0"><input class="text" id="RI" type="text" name="nom"></td><td class="TD0"><input class="text" type="text" name="email"></td><td class="TD0"><input class="bouton1" type="submit" value="Rechercher"></td></tr>
+                    <tr><td class="TD0"><input class="text" id="RI" type="text" name="nom"></td>
+                        <td class="TD0"><input class="text" type="text" name="email"></td>
+                        <td class="TD0"><input class="bouton1" type="submit" name="R" value="Rechercher"><input class="bouton1" type="submit" name="R" value="Nouveau"></td></tr>
                   <!--  <tr><td></td><td><input type="submit" value="Rechercher"></td></tr>
                         <tr><td></td><td><input type="hidden" name="flag" value="ok"></td></tr> -->
                 </table>
             </form>
         </div>
-<?php
-if ($choix <> 0) {
-    ?>
+        <?php
+        if ($choix <> 0) {
+            ?>
 
             <?php
             $nb = $result2->Rowcount(); /* Rowcount A VOIR */
             $nb3 = $result3->Rowcount(); /* Rowcount A VOIR */
 
-            if ($nb == 0) {
+            if ($nb == 0 || $choix == 3) {
                 ?>
                 <div style="background-color:#C3C3C3">
                     <form name="form2" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return verif_form()">
@@ -199,27 +188,18 @@ if ($choix <> 0) {
                                 <td class="TD1">Aujourd'hui<input type="checkbox" name="visite" value="checked"></td>
                                 <td colspan=2 class="TD1"><input class="bouton1" type="submit" value="Créer"><input type="hidden" name="type" value="I"><input type="hidden" name="id" value="0"></td>
                             </tr>
-
-
-                            <!--
-                    <table cellspacing="2" cellpadding="2" border="0" >
-                            <tr><td>NOM</td><td>PRENOM</td><td>E-MAIL</td><td><input type="hidden" name="flag2" value="INS"></td><td></td></tr>
-                            <tr><td></td><td></td><td></td><td><input type="hidden" name="flag2" value="INS"></td><td></td></tr>
-                            <tr><td>CODEPOSTAL</td><td>VILLE</td><td>ADRESSE</td><td></td><td></td></tr>
-                            <tr><td><input class="text" type="text" name="Ccodpos"></td><td><input class="text" type="text" name="Cville"></td><td><input class="text" type="text" name="Cadresse1"></td><td><input class="text" type="text" name="Cadresse2"></td><td><input type="submit" value="Créer"></td></tr>
-                            -->
                         </table>
                     </form>
                 </div>
-        <?php
-    } else {
-        ?>
+                <?php
+            } else {
+                ?>
                 <table class="listing">
                     <caption style="background-color:#FFFFAA">Recherche par Nom</caption>
                     <tr><th class="TD0">Nom</th><th class="TD0">Prénom</th><th class="TD0">E-mail</th><th class="TD1">Visite</th><th class="TD1"></tr>
-                <?php
-                while ($data = $result2->fetch()) {
-                    ?>
+                    <?php
+                    while ($data = $result2->fetch()) {
+                        ?>
                         <tr><td class="TD0" <?php if ($data['suppression'] <> 0) echo ('style="color:red"') ?>><?php echo nl2br(htmlspecialchars(strtoupper($data['nom']))) ?><div class="bulle"><?php echo nl2br(htmlspecialchars(strtoupper($data['adresse1']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['code_postal']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['ville']))) ?></div></td>
                             <td class="TD0"><?php echo nl2br(htmlspecialchars(strtoupper($data['prenom']))) ?></td>
                             <td class="TD0"><?php echo nl2br(htmlspecialchars($data['email'])) ?></td>
@@ -229,16 +209,16 @@ if ($choix <> 0) {
                     }
                     ?>
                 </table>
-        <?php
-    }
-}
-?>
+                <?php
+            }
+        }
+        ?>
         <table class="listing">
             <caption style="background-color:#FFFFAA">Dernière mise à jour</caption>
             <tr><th class="TD0">Nom</th><th class="TD0">Prénom</th><th class="TD0">E-mail</th><th class="TD1">Maj</th><th class="TD1"></tr>
-        <?php
-        while ($data = $result3->fetch()) {
-            ?>
+            <?php
+            while ($data = $result3->fetch()) {
+                ?>
 
                 <tr><td class="TD0" <?php if ($data['suppression'] <> 0) echo ('style="color:red"') ?>><?php echo nl2br(htmlspecialchars(strtoupper($data['nom']))) ?><div class="bulle"><?php echo nl2br(htmlspecialchars(strtoupper($data['adresse1']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['code_postal']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['ville']))) ?></div></td>
                     <td class="TD0"><?php echo nl2br(htmlspecialchars(strtoupper($data['prenom']))) ?></td>
@@ -248,9 +228,9 @@ if ($choix <> 0) {
                 <?php
             }
             ?>
-<?php
-if ($choix <> 0) {
-    ?>
+            <?php
+            if ($choix <> 0) {
+                ?>
             </table>
             <!--<form name="form3" action="maj2_membres.php" method="post" > -->
             <table class="listing">
@@ -265,13 +245,13 @@ if ($choix <> 0) {
                         <td class="TD0"><?php echo nl2br(htmlspecialchars($data['email'])) ?></td>
                         <td class="TD1"><?php echo $data['date_validation'] ?></td>
                         <td class="TD1"><input type="button" value="Maj" class="bouton1" onclick="self.location.href = 'maj2_membres.php?id=<?php echo($data['id_membre']) ?>&type=M'"><input type="button" value="Visite" class="bouton1" onclick="self.location.href = 'maj4_membres.php?id=<?php echo($data['id_membre']) ?>&type=P'"></td></tr>
-                    <?php
-                }
-                ?>
+                            <?php
+                        }
+                        ?>
             </table>
             <!--</form> -->
-    <?php
-}
-?>
+            <?php
+        }
+        ?>
     </body>
 </html>
