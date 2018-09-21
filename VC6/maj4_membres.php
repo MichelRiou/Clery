@@ -5,8 +5,8 @@ if (isset($_GET['id']))
 {
 try
 			{
-    			$db = new PDO('mysql:host=mysql5-22.90;dbname=studiogpvc1', 'studiogpvc1', 'FpgTxyF8xY');
-				/*$db = new PDO('mysql:host=localhost;dbname=studiogpvc1', 'root', '');*/
+    			//$db = new PDO('mysql:host=mysql5-22.90;dbname=studiogpvc1', 'studiogpvc1', 'FpgTxyF8xY');
+				$db = new PDO('mysql:host=localhost;dbname=studiogpvc1', 'root', '');
 				$db->exec('SET NAMES utf8');
 				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}

@@ -1,4 +1,4 @@
-/* Générale ww*/
+/* Gï¿½nï¿½rale ww*/
 /** {
     padding: 0;
     margin: 100;
@@ -60,6 +60,13 @@ color:red;
 font-size: 3.5em;
 font-family: Arial, "Arial Black",  Verdana, sans-serif; 
 }
+#message
+{
+text-align: center;
+color:red;
+font-size: 1em;
+font-family: Arial, "Arial Black",  Verdana, sans-serif; 
+}
 .saisie
 {
 background-color:#C3C3C3;
@@ -112,7 +119,7 @@ height:25px;
 overflow: hidden;
 border: 1px solid black; 
 padding:0;
-width:23%;
+width:22%;
 height:25px;
 }
 .TD1
@@ -122,7 +129,17 @@ font-family: calibri, "Arial Black",  Verdana, sans-serif;
 overflow: hidden;
 border: 1px solid black; 
 padding:0;
-width:10%;
+width:8%;
+height:25px;
+}
+.TD2
+{
+font-size: 0.8em;
+font-family: calibri, "Arial Black",  Verdana, sans-serif; 
+overflow: hidden;
+border: 1px solid black; 
+padding:0;
+width:4%;
 height:25px;
 }
 table.listing tr:hover
@@ -169,5 +186,5 @@ font-family: calibri, "Arial Black",  Verdana, sans-serif;
  -moz-border-radius:10px 0;  
  -webkit-border-radius:10px 0; */
   
-  /* cursor: help; /* On change le curseur par défaut par un curseur d'aide. */
+  /* cursor: help; /* On change le curseur par dï¿½faut par un curseur d'aide. */
 }
