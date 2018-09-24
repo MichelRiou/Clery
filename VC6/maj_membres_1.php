@@ -1,22 +1,30 @@
 <?php
 include("connect.inc.php");
 $choix = 0;
-if (filter_input(INPUT_POST, 'select_nom') !== null and ( filter_input(INPUT_POST, 'select_nom') <> '')) {
-    $savnom = filter_input(INPUT_POST, 'select_nom');
+
+if (isset($_POST['nom']) and ( $_POST['nom'] <> '')) {
+
+    $savnom = $_POST['nom'];
     $savmail = '';
     $result = $db->prepare('SELECT * FROM membres WHERE NOM like :QN1 ORDER BY NOM');
-    $result->execute(array(':QN1' => filter_input(INPUT_POST, 'select_nom') . '%'));
+    $result->execute(array(':QN1' => $_POST['nom'] . '%'));
     $result2 = $db->prepare('SELECT * FROM membres WHERE NOM = :QN1 ORDER BY NOM');
-    $result2->execute(array(':QN1' => filter_input(INPUT_POST, 'select_nom')));
+    $result2->execute(array(':QN1' => $_POST['nom']));
+
+
     $choix = 1;
 } else {
-    if (filter_input(INPUT_POST, 'select_email') and filter_input(INPUT_POST, 'select_email') <> '') {
-        $savmail = filter_input(INPUT_POST, 'select_email');
+    if (isset($_POST['email']) and $_POST['email'] <> '') {
+
+
+        $savmail = $_POST['email'];
         $savnom = '';
         $result = $db->prepare('SELECT * FROM membres WHERE EMAIL like :QM1 ');
-        $result->execute(array(':QM1' => '%' . filter_input(INPUT_POST, 'select_email') . '%'));
+        $result->execute(array(':QM1' => '%' . $_POST['email'] . '%'));
         $result2 = $db->prepare('SELECT * FROM membres WHERE EMAIL = :QM1 ');
-        $result2->execute(array(':QM1' => filter_input(INPUT_POST, 'select_email')));
+        $result2->execute(array(':QM1' => $_POST['email']));
+
+
         $choix = 2;
     } else {
         if (filter_input(INPUT_POST, 'R') == 'Nouveau') {
@@ -31,13 +39,87 @@ if (filter_input(INPUT_POST, 'select_nom') !== null and ( filter_input(INPUT_POS
 $result3 = $db->prepare('SELECT * FROM membres ORDER BY TIME_CREATION DESC LIMIT 3');
 $result3->execute();
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>MISE A JOUR FICHIER MAILING</title>
-        <script type="text/javascript" language="javascript" src="javascript.js"></script>
+        <script type="text/javascript">
+            function verif_mail()
+            {
+                if (!(document.forms["form2"].nomail.checked))
+                {
+                    var c = document.forms["form2"].email.value;
+                    var x = c.indexOf("@", 1);
+
+                    /*var y=c.indexOf(".",x+1);*/
+                    if (x == -1)
+                    {
+                        alert("Votre E-mail ne semble pas valide !!");
+                        document.forms["form2"].email.focus();
+                        return false;
+                    }
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+            function verif()
+            {
+                if (document.forms["form2"].nom.value.length < 1)
+                {
+                    alert("Veuillez ajouter votre nom, Merci.");
+                    document.forms["form2"].nom.focus();
+                    return false;
+                }
+                if (document.forms["form2"].prenom.value.length < 1)
+                {
+                    alert("Veuillez ajouter votre prénom, Merci.");
+                    document.forms["form2"].prenom.focus();
+                    return false;
+                }
+                if ((document.forms["form2"].email.value.length < 6) && !(document.forms["form2"].nomail.checked))
+                {
+                    alert("Veuillez ajouter un E-mail valide, Merci.");
+                    document.forms["form2"].email.focus();
+                    return false;
+                }
+
+                if (document.forms["form2"].pos.value.length < 1)
+                {
+                    alert("Veuillez ajouter votre code postal, Merci.");
+                    document.forms["form2"].pos.focus();
+                    return false;
+                }
+                if (document.forms["form2"].nomail.checked)
+                {
+                    if (document.forms["form2"].ad1.value.length < 1)
+                    {
+                        alert("Veuillez ajouter votre adresse, Merci.");
+                        document.forms["form2"].ad1.focus();
+                        return false;
+                    }
+                    if (document.forms["form2"].ville.value.length < 1)
+                    {
+                        alert("Veuillez ajouter votre ville, Merci.");
+                        document.forms["form2"].ville.focus();
+                        return false;
+                    }
+                }
+                return true;
+            }
+            function verif_form()
+            {
+                if (verif() == true && verif_mail() == true)
+                {
+                    return true;
+                }
+                return false;
+            }
+        </script>
     </head>
     <body bgcolor="#FFFFFF" text=black onload="document.getElementById('RI').focus()">
         <div align="center" style="background-color:#FFFFFF">
@@ -45,15 +127,18 @@ $result3->execute();
                 <table class="listing">
                     <caption style="background-color:#FFFFAA">MISE A JOUR FICHIER MAILING</caption>
                     <tr><th class="TD0">PAR NOM</th><th class="TD0">PAR MAIL</th></th><th class="TD0"><input type="hidden" name="flag" value="ok"></th></tr>
-                    <tr><td class="TD0"><input class="text" id="RI" type="text" name="select_nom"></td>
-                        <td class="TD0"><input class="text" type="text" name="select_email"></td>
+                    <tr><td class="TD0"><input class="text" id="RI" type="text" name="nom"></td>
+                        <td class="TD0"><input class="text" type="text" name="email"></td>
                         <td class="TD0"><input class="bouton1" type="submit" name="R" value="Rechercher"><input class="bouton1" type="submit" name="R" value="Nouveau"></td></tr>
+                  <!--  <tr><td></td><td><input type="submit" value="Rechercher"></td></tr>
+                        <tr><td></td><td><input type="hidden" name="flag" value="ok"></td></tr> -->
                 </table>
             </form>
         </div>
         <?php
         if ($choix <> 0) {
             ?>
+
             <?php
             $nb = $result2->Rowcount(); /* Rowcount A VOIR */
             $nb3 = $result3->Rowcount(); /* Rowcount A VOIR */
@@ -61,7 +146,7 @@ $result3->execute();
             if ($nb == 0 || $choix == 3) {
                 ?>
                 <div style="background-color:#C3C3C3">
-                    <form name="form4" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return verif_form()">
+                    <form name="form2" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return verif_form()">
                         <table class="listing">
                             <caption style="background-color:#FFFFAA">CREATION</caption>
                             <tr>
@@ -83,12 +168,12 @@ $result3->execute();
                                 <th class="TD2">Taille</th>
                             </tr>
                             <tr>
-                                <td class="TD0"><input class="text" type="text"  size="25" maxlength="25" name="nom" id="nom" value="<?php echo htmlspecialchars($savnom) ?> " autofocus></td>
-                                <td class="TD0"><input class="text" type="text" size="25" maxlength="25" id="prenom" name="prenom"></td>
-                                <td class="TD0"><input class="text" type="text" id="email" name="email" value="<?php echo htmlspecialchars($savmail) ?>"></td>
-                                <td class="TD1"><input class="text" placeholder="ex: 0612345678" type="text" size="10" maxlength="10" id="sms" name="sms"></td>
-                                <td class="TD2"><input class="text" placeholder="ex: 03120" type="text" size="5" maxlength="5" id="pos" name="pos"></td>
-                                <td class="TD2"><input class="text" type="text" size="5" maxlength="5" id="taille" name="taille"></td>
+                                <td class="TD0"><input class="text" type="text" id="TI" required size="25" maxlength="25"name="nom" value="<?php echo htmlspecialchars($savnom) ?>"></td>
+                                <td class="TD0"><input class="text" type="text" size="25" required maxlength="25" name="prenom"></td>
+                                <td class="TD0"><input class="text" type="text" name="email" value="<?php echo htmlspecialchars($savmail) ?>"><span><input type="checkbox" name="nomail" value="No">No</span></td>
+                                <td class="TD1"><input class="text" pattern="0[6-7][0-9]{8}" placeholder="ex: 0612345678" type="text" size="10" maxlength="10"name="sms"></td>
+                                <td class="TD2"><input class="text" pattern="[0-9]{5}" placeholder="ex: 03120" type="text" size="5" maxlength="5"name="pos"></td>
+                                <td class="TD2"><input class="text" type="text" size="5" maxlength="5" name="taille"></td>
                             </tr>
                             <tr>
                                 <th class="TD0">Adresse</th>
@@ -97,9 +182,9 @@ $result3->execute();
                                 <th class="TD1">Visite</th>
                                 <th colspan=2 class="TD1"></th>
                             </tr>
-                            <tr><td class="TD0"><input class="text" type="text" size="30" maxlength="50" id="ad1" name="ad1"></td>
-                                <td class="TD0"><input class="text" type="text" size="30" maxlength="50" id="ad2" name="ad2"></td>
-                                <td class="TD0"><input class="text" type="text" size="30" maxlength="30" id="ville" name="ville"></td>
+                            <tr><td class="TD0"><input class="text" type="text" size="30" maxlength="50" name="ad1"></td>
+                                <td class="TD0"><input class="text" type="text" size="30" maxlength="50" name="ad2"></td>
+                                <td class="TD0"><input class="text" type="text" size="30" maxlength="30" name="ville"></td>
                                 <td class="TD1">Aujourd'hui<input type="checkbox" name="visite" value="checked"></td>
                                 <td colspan=2 class="TD1"><input class="bouton1" type="submit" value="Créer"><input type="hidden" name="type" value="I"><input type="hidden" name="id" value="0"></td>
                             </tr>
@@ -135,6 +220,7 @@ $result3->execute();
             <?php
             while ($data = $result3->fetch()) {
                 ?>
+
                 <tr><td class="TD0" <?php if ($data['suppression'] <> 0) echo ('style="color:red"') ?>><?php echo nl2br(htmlspecialchars(strtoupper($data['nom']))) ?><div class="bulle"><?php echo nl2br(htmlspecialchars(strtoupper($data['adresse1']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['code_postal']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['ville']))) ?></div></td>
                     <td class="TD0"><?php echo nl2br(htmlspecialchars(strtoupper($data['prenom']))) ?></td>
                     <td class="TD0"><?php echo nl2br(htmlspecialchars($data['email'])) ?></td>
@@ -147,12 +233,14 @@ $result3->execute();
             if ($choix <> 0) {
                 ?>
             </table>
+            <!--<form name="form3" action="maj2_membres.php" method="post" > -->
             <table class="listing">
                 <caption style="background-color:#FFFFAA">Recherche étendue</caption>
                 <tr><th class="TD0">Nom</th><th class="TD0">Prénom</th><th class="TD0">E-mail</th><th class="TD1">Visite</th><th class="TD1"></tr>
                 <?php
                 while ($data = $result->fetch()) {
                     ?>
+
                     <tr><td class="TD0" <?php if ($data['suppression'] <> 0) echo ('style="color:red"') ?>><?php echo nl2br(htmlspecialchars(strtoupper($data['nom']))) ?><div class="bulle"><?php echo nl2br(htmlspecialchars(strtoupper($data['adresse1']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['code_postal']))); ?> &nbsp <?php echo nl2br(htmlspecialchars(strtoupper($data['ville']))) ?></div></td>
                         <td class="TD0"><?php echo nl2br(htmlspecialchars(strtoupper($data['prenom']))) ?></td>
                         <td class="TD0"><?php echo nl2br(htmlspecialchars($data['email'])) ?></td>
@@ -162,6 +250,7 @@ $result3->execute();
                         }
                         ?>
             </table>
+            <!--</form> -->
             <?php
         }
         ?>
