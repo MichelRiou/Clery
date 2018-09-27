@@ -83,8 +83,8 @@ $result3->execute();
                                 <th class="TD2">Taille</th>
                             </tr>
                             <tr>
-                                <td class="TD0"><input class="text" type="text"  size="25" maxlength="25" name="nom" id="nom" value="<?php echo htmlspecialchars($savnom) ?>" autofocus></td>
-                                <td class="TD0"><input class="text" type="text" size="25" maxlength="25" id="prenom" name="prenom"></td>
+                                <td class="TD0"><input class="text" type="text"  size="50" maxlength="50" name="nom" id="nom" value="<?php echo htmlspecialchars($savnom) ?>" autofocus></td>
+                                <td class="TD0"><input class="text" type="text" size="50" maxlength="50" id="prenom" name="prenom"></td>
                                 <td class="TD0"><input class="text" type="text" id="email" name="email" value="<?php echo htmlspecialchars($savmail) ?>"></td>
                                 <td class="TD1"><input class="text" placeholder="ex: 0612345678" type="text" size="10" maxlength="10" id="sms" name="sms"></td>
                                 <td class="TD2"><input class="text" placeholder="ex: 03120" type="text" size="5" maxlength="5" id="pos" name="pos"></td>
@@ -97,8 +97,8 @@ $result3->execute();
                                 <th class="TD1">Visite</th>
                                 <th colspan=2 class="TD1"></th>
                             </tr>
-                            <tr><td class="TD0"><input class="text" type="text" size="30" maxlength="50" id="ad1" name="ad1"></td>
-                                <td class="TD0"><input class="text" type="text" size="30" maxlength="50" id="ad2" name="ad2"></td>
+                            <tr><td class="TD0"><input class="text" type="text" size="50" maxlength="50" id="ad1" name="ad1"></td>
+                                <td class="TD0"><input class="text" type="text" size="50" maxlength="50" id="ad2" name="ad2"></td>
                                 <td class="TD0"><input class="text" type="text" size="30" maxlength="30" id="ville" name="ville"></td>
                                 <td class="TD1">Aujourd'hui<input type="checkbox" name="visite" value="checked"></td>
                                 <td colspan=2 class="TD1"><input class="bouton1" type="submit" value="Créer"><input type="hidden" name="type" value="I"><input type="hidden" name="id" value="0"></td>
