@@ -83,7 +83,7 @@ $result3->execute();
                                 <th class="TD2">Taille</th>
                             </tr>
                             <tr>
-                                <td class="TD0"><input class="text" type="text"  size="25" maxlength="25" name="nom" id="nom" value="<?php echo htmlspecialchars($savnom) ?> " autofocus></td>
+                                <td class="TD0"><input class="text" type="text"  size="25" maxlength="25" name="nom" id="nom" value="<?php echo htmlspecialchars($savnom) ?>" autofocus></td>
                                 <td class="TD0"><input class="text" type="text" size="25" maxlength="25" id="prenom" name="prenom"></td>
                                 <td class="TD0"><input class="text" type="text" id="email" name="email" value="<?php echo htmlspecialchars($savmail) ?>"></td>
                                 <td class="TD1"><input class="text" placeholder="ex: 0612345678" type="text" size="10" maxlength="10" id="sms" name="sms"></td>

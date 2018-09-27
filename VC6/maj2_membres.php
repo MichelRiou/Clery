@@ -17,9 +17,9 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
 
             <link rel="stylesheet" type="text/css" href="style.css" />
             <title>MISE A JOUR FICHIER MAILING</title>
-
-            <script type="text/javascript">
-                var msg = '';
+            <script type="text/javascript" language="javascript" src="javascript.js"></script>
+       <!--     <script type="text/javascript">
+   /*             var msg = '';
                 function checkMail()
                 {
                     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -65,6 +65,7 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         document.getElementById("prenom").focus();
                         msg += 'Le prénom est obligatoire.<br>';
                     }
+                     if ((document.getElementById("sus")!= null) && (!document.getElementById("sus").checked)){
                     if (document.getElementById("ad1").value.length > 0
                             || document.getElementById("ad2").value.length > 0
                             || document.getElementById("pos").value.length > 0
@@ -97,7 +98,7 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
 
                         msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
                     }
-
+                }
 
                     if (msg == '') {
                         return true;
@@ -108,9 +109,9 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         return false;
                     }
 
-                }
+                }*/
 
-            </script>
+            </script> -->
         </head>
         <body>
             <form name="form4" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return verif_form()">
@@ -146,7 +147,7 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
                         <tr class="TD0"><td class="TD0">E-MAIL</td><td class="TD0"><input class="text" type="text" id="email" name="email" value="<?php echo ($data5['email']) ?>"></td></tr>
                         <tr class="TD0"><td class="TD0">SMS</td><td class="TD0"><input class="text" type="text" id="sms" maxlength="10" name="sms" value="<?php echo ($data5['sms']) ?>"></td></tr>
 
-                        <tr class="TD0"><td class="TD0">SUSPENSION</td><td class="TD0"><span><input type="radio" name="sus" value=1 <?php
+                        <tr class="TD0"><td class="TD0">SUSPENSION</td><td class="TD0"><span><input type="radio" name="sus" value=1 id="sus"<?php
                                     if ($data5['suppression'] <> 0) {
                                         echo ('checked="checked"');
                                     }

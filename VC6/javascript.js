@@ -32,18 +32,19 @@ var msg = '';
                 document.getElementById("ad1").style.backgroundColor = "white";
                 document.getElementById("ville").style.backgroundColor = "white";
 
-                if (document.getElementById("nom").value.length < 1)
+                if (document.getElementById("nom").value.trim().length < 1)
                 {
                     document.getElementById("nom").style.backgroundColor = "orange";
                     document.getElementById("nom").focus();
                     msg += 'Le nom est obligatoire.<br>';
                 }
-                if (document.getElementById("prenom").value.length < 1)
+                if (document.getElementById("prenom").value.trim().length < 1)
                 {
                     document.getElementById("prenom").style.backgroundColor = "orange";
                     document.getElementById("prenom").focus();
                     msg += 'Le prénom est obligatoire.<br>';
                 }
+                if ((document.getElementById("sus")== null) || (!document.getElementById("sus").checked)){
                 if (document.getElementById("ad1").value.length > 0
                         || document.getElementById("ad2").value.length > 0
                         || document.getElementById("pos").value.length > 0
@@ -77,7 +78,7 @@ var msg = '';
                     msg += 'Vous devez saisir soit un email, un numéro de portable ou une adresse complète.';
                 }
 
-
+                }
                 if (msg == '') {
                     return true;
                 } else
