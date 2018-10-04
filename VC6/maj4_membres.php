@@ -1,6 +1,6 @@
 <?php
 
-include("connect.inc.php");
+include("../connect.inc.php");
 if (isset($_GET['id'])) {
 
     try {

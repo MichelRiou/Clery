@@ -1,6 +1,6 @@
 <?php
 
-$properties = parse_ini_file("../connexion.properties");
+$properties = parse_ini_file("connexion.properties");
 $protocole = $properties["protocole"];
 $serveur = $properties["serveur"];
 $port = $properties["port"];

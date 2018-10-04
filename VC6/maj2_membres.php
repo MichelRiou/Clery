@@ -1,5 +1,5 @@
 <?php
-include("connect.inc.php");
+include("../connect.inc.php");
 if (isset($_GET['id']) and isset($_GET['type'])) {
     try {
         $result5 = $db->prepare('SELECT * FROM membres WHERE ID_MEMBRE = :QN1 ');
@@ -15,9 +15,9 @@ if (isset($_GET['id']) and isset($_GET['type'])) {
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-            <link rel="stylesheet" type="text/css" href="style.css" />
+            <link rel="stylesheet" type="text/css" href="../style.css" />
             <title>MISE A JOUR FICHIER MAILING</title>
-            <script type="text/javascript" language="javascript" src="javascript.js"></script>
+            <script type="text/javascript" language="javascript" src="../javascript.js"></script>
         </head>
         <body>
             <form name="form4" action="maj3_membres.php" autocomplete="off" method="post" onSubmit="return verif_form()">

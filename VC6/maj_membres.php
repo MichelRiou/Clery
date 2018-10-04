@@ -1,5 +1,5 @@
 <?php
-include("connect.inc.php");
+include("../connect.inc.php");
 $choix = 0;
 if (filter_input(INPUT_POST, 'select_nom') !== null and ( filter_input(INPUT_POST, 'select_nom') <> '')) {
     $savnom = filter_input(INPUT_POST, 'select_nom');
@@ -35,9 +35,9 @@ $result3->execute();
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="../style.css" />
         <title>MISE A JOUR FICHIER MAILING</title>
-        <script type="text/javascript" language="javascript" src="javascript.js"></script>
+        <script type="text/javascript" language="javascript" src="../javascript.js"></script>
     </head>
     <body bgcolor="#FFFFFF" text=black onload="document.getElementById('RI').focus()">
         <div align="center" style="background-color:#FFFFFF">

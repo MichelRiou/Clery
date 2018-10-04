@@ -89,3 +89,71 @@ var msg = '';
                 }
 
             }
+            function verif_form2()
+            {
+                msg = '';
+                document.getElementById("nom").style.backgroundColor = "white";
+                document.getElementById("prenom").style.backgroundColor = "white";
+                document.getElementById("pos").style.backgroundColor = "white";
+                document.getElementById("email").style.backgroundColor = "white";
+                document.getElementById("sms").style.backgroundColor = "white";
+                document.getElementById("ad1").style.backgroundColor = "white";
+                document.getElementById("ville").style.backgroundColor = "white";
+
+                if (document.getElementById("nom").value.trim().length < 1)
+                {
+                    document.getElementById("nom").style.backgroundColor = "orange";
+                    document.getElementById("nom").focus();
+                    msg += 'Le nom est obligatoire.<br>';
+                }
+                if (document.getElementById("prenom").value.trim().length < 1)
+                {
+                    document.getElementById("prenom").style.backgroundColor = "orange";
+                    document.getElementById("prenom").focus();
+                    msg += 'Le prénom est obligatoire.<br>';
+                }
+              
+                if (document.getElementById("ad1").value.length > 0
+                        || document.getElementById("ad2").value.length > 0
+                        || document.getElementById("pos").value.length > 0
+                        || document.getElementById("ville").value.length > 0
+                        || document.getElementById("pos").value.length > 0)
+                {
+                    if (!checkAddress()) {
+                        document.getElementById("ad1").style.backgroundColor = "orange";
+                        document.getElementById("ville").style.backgroundColor = "orange";
+                        document.getElementById("pos").style.backgroundColor = "orange";
+                        document.getElementById("ad1").focus();
+                        msg += 'L\'adresse n\'est pas valide.<br>';
+                    }
+                }
+                if ((document.getElementById("email").value.length > 0) && (!checkMail()))
+                {
+                    document.getElementById("email").style.backgroundColor = "orange";
+                    document.getElementById("email").focus();
+                    msg += 'L\'email n\'est pas valable.<br>';
+                }
+                if ((document.getElementById("sms").value.length > 0) && (!checkSms()))
+                {
+                    document.getElementById("sms").style.backgroundColor = "orange";
+                    document.getElementById("sms").focus();
+                    msg += 'Le numéro de téléphone est incorrect.<br>';
+                }
+
+
+                if (!checkMail()) {
+                    document.getElementById("email").style.backgroundColor = "orange";
+                    document.getElementById("email").focus();
+                    msg += 'Vous devez saisir obligatoirement votre email.';
+                }
+
+                if (msg == '') {
+                    return true;
+                } else
+                {
+                    console.log(message);
+                    document.getElementById("message").innerHTML = msg;
+                    return false;
+                }
+
+            }
